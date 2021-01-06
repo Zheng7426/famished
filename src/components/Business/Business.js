@@ -1,5 +1,7 @@
-import { render } from '@testing-library/react';
+// import { render } from '@testing-library/react';
 import React from 'react';
+import './Business.css';
+
 
 const business = {
     imgSrc: 'https://content.codecademy.com/programs/react/ravenous/pizza.jpg',
@@ -13,7 +15,7 @@ const business = {
     reviewCount: 90
 };
 
-Class Business extends React.Component {
+class Business extends React.Component {
     render() {
         return (
             <div className="Business">
@@ -37,3 +39,5 @@ Class Business extends React.Component {
         );
     }
 }
+
+export default Business;
