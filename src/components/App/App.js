@@ -26,11 +26,15 @@ const businesses = [
   business
 ]; 
 
+function searchYelp(term, location, sortBy) {
+  console.log(`Searching Yelp with ${term}, ${location}, ${sortBy}`);
+}
+
 function App() {
   return (  
   <div className="App">
     <h1>Famished</h1>
-    <SearchBar />
+    <SearchBar searchYelp={searchYelp} />
     <BusinessList businesses={businesses} />
   </div>
   );
