@@ -1,44 +1,76 @@
 //import logo from './logo.svg';
 import React from 'react';
 import './App.css';
-import Business from '../Business/Business';
 import BusinessList from '../BusinessList/BusinessList';
 import SearchBar from '../SearchBar/SearchBar';
+import Yelp from '../../util/Yelp';
 
-const business = {
-  imgSrc: 'https://content.codecademy.com/programs/react/ravenous/pizza.jpg',
-  name: 'MarginOtto Pizzeria',
-  address: '1010 Paddington Way',
-  city: 'Flavortown',
-  state: 'NY',
-  zipCode: '10101',
-  category: 'Italian',
-  rating: 4.5,
-  reviewCount: 90
-};
+// const business = {
+//   imgSrc: 'https://content.codecademy.com/programs/react/ravenous/pizza.jpg',
+//   name: 'MarginOtto Pizzeria',
+//   address: '1010 Paddington Way',
+//   city: 'Flavortown',
+//   state: 'NY',
+//   zipCode: '10101',
+//   category: 'Italian',
+//   rating: 4.5,
+//   reviewCount: 90
+// };
 
-const businesses = [
-  business, 
-  business,
-  business,
-  business,
-  business,
-  business
-]; 
+// const businesses = [
+//   business, 
+//   business,
+//   business,
+//   business,
+//   business,
+//   business
+// ]; 
 
-function searchYelp(term, location, sortBy) {
-  console.log(`Searching Yelp with ${term}, ${location}, ${sortBy}`);
-}
+// function searchYelp(term, location, sortBy) {
+//   //console.log(`Searching Yelp with ${term}, ${location}, ${sortBy}`);
+//   const [businesses, setBusinesses] = useState([]);
+  // Yelp.search(term, location, sortBy).then(businesses => {
+  //   setBusinesses(businesses)
+//   });
+// }
 
-function App() {
-  return (  
-  <div className="App">
-    <h1>Famished</h1>
-    <SearchBar searchYelp={searchYelp} />
-    <BusinessList businesses={businesses} />
-  </div>
-  );
+// function App() {
 
+//   return (  
+  // <div className="App">
+  //   <h1>Famished</h1>
+  //   <SearchBar searchYelp={searchYelp} />
+  //   <BusinessList businesses={businesses} />
+  // </div>
+//   );
+
+// }
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { 
+      businesses: [] 
+    };
+    this.searchYelp = this.searchYelp.bind(this);
+  }
+
+  searchYelp(term, location, sortBy) {
+    Yelp.search(term, location, sortBy).then(businesses => {
+      this.setState({
+        businesses: businesses
+      });
+    });
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <h1>Famished</h1>
+        <SearchBar searchYelp={this.searchYelp} />
+        <BusinessList businesses={this.state.businesses} />
+      </div>
+    );
+  }
 }
 
 export default App;
